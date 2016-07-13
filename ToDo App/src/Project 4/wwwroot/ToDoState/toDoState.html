@@ -1,0 +1,137 @@
+﻿<div class="container">
+    
+    <span id="currentDateTime">Current Date & Time: {{today}}</span>
+    
+    <div class="btn-toolbar">
+        <button id="addButton" data-toggle="collapse" data-target="#add" class="btn btn-success">
+            <i class="glyphicon glyphicon-plus"></i>  Add
+        </button>
+        <button class="btn btn-info" ng-click="settings()">
+            <i class="glyphicon glyphicon-cog"></i>  Settings
+        </button>
+    </div>
+
+    <form class="collapse" ng-submit="submit()" id="add">
+        <span>Task Name: </span>
+        <input type="text" ng-model="ToDo.Name"/>
+        <br/><br/>
+
+        <span>Task Description: </span><br/>
+        <textarea type="text" ng-model="ToDo.Description"></textarea>
+        <br/><br/>
+
+        <span>Date & Time: </span>
+        <datetimepicker ng-model="ToDo.DueDate" date-format="dd-MMM-yyyy" date-options="dateOptions"></datetimepicker>
+        <br/><br/>
+
+        <span>Tags: </span>
+        <input ng-model="ToDo.Tags" type="text" style="width:60%"/> Separate tags with a comma.
+        <br/><br/>
+
+        <span>State: </span>
+        <Select ng-model="ToDo.State">
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+        </Select>
+        <br/><br/>
+
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+
+    <h2 ng-hide="activeToDos.length">
+        <strong>Welcome to the ToDo Manager! <br/>
+            Get started by pushing the 'Add' button to add a task!</strong>
+    </h2>
+    <div ng-show="activeToDos.length">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>
+                    <span ng-click="order('name')">Name  <i class="glyphicon glyphicon-sort"></i></span>
+                </th>
+                <th>
+                    <span ng-click="order('description')">Description  <i class="glyphicon glyphicon-sort"></i></span>
+                </th>
+                <th>
+                    <span ng-click="order('date')">Date & Time  <i class="glyphicon glyphicon-sort"></i></span>
+                </th>
+                <th>Tags <i class="glyphicon glyphicon-tags"></i></th>
+                <th>State</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr ng-repeat="toDo in activeToDos | orderBy:predicate:reverse | filter:tagFilter track by $index">
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">{{toDo.name}}</td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-show="toDo.editable">
+                    <input ng-model="ToDo.Name" type="text"/>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">{{toDo.description}}</td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-show="toDo.editable">
+                    <input ng-model="ToDo.Description" type="text"/>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">{{toDo.dueDate}}</td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-show="toDo.editable">
+                    <datetimepicker ng-model="ToDo.DueDate" date-format="dd-MMM-yyyy" date-options="dateOptions"></datetimepicker>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">
+                    <div ng-repeat="tag in toDo.tags">
+                        <span class="tags">{{tag}}</span>
+                    </div>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-show="toDo.editable">
+                    <input ng-model="ToDo.Tags" type="text" style="width:60%" />
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">{{toDo.state}}</td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-show="toDo.editable">
+                    <Select ng-model="ToDo.State">
+                        <option value="Active">Active</option>
+                        <option value="Completed">Completed</option>
+                    </Select>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}" ng-if="!toDo.editable">
+                    <button class="btn btn-success" ng-click="update(toDo, toDo.id)">Edit</button>
+                </td>
+                <td ng-show="toDo.editable" ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}">
+                    <button class="btn btn-success" ng-click="update(toDo, toDo.id)">Update</button>
+                </td>
+                <td ng-class="{passedDue: toDo.passedDue, warning: toDo.warning}">
+                    <button class="btn btn-danger" ng-click="delete(toDo.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+
+        <span>Tag filter: </span>
+        <input type="text" ng-model="tagFilter.tags"/>
+    </div>
+
+    <br/><br/>
+
+    <button ng-show="completedToDos.length" id="completedButton" data-toggle="collapse" data-target="#completedItems" class="btn btn-primary" style="background-color: rgba(74, 73, 73, 0.95); border-color: rgba(74, 73, 73, 0.95)">Show Completed Tasks</button>
+
+    <div id="completedItems" class="collapse">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date & Time</th>
+                <th>Tags</th>
+                <th>State</th>
+                <th>Delete</th>
+            </tr>
+            <tr ng-repeat="toDo in completedToDos | orderBy:predicate:reverse track by $index">
+                <td>{{toDo.name}}</td>
+                <td>{{toDo.description}}</td>
+                <td>{{toDo.dueDate}}</td>
+                <td>
+                    <div ng-repeat="tag in toDo.tags">
+                        <span class="tags">{{tag}}</span>
+                    </div>
+                </td>
+                <td>{{toDo.state}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="delete(toDo.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+﻿<div class="container" style="width: 100%" ng-show="repoData">
+
+    <div class="jumbotron">
+        <h1>{{repoData.name}}</h1>
+        <a href="{{repoData.html_url}}">{{repoData.html_url}}</a><br/>
+        <p ng-show="repoData.description" style="margin-top: 20px">Description: {{repoData.description}}</p>
+        <div class="row">
+            <span class="col-sm-1"><i class="fa fa-star">{{repoData.stargazers_count}}</i></span>
+            <span class="col-sm-1"><i class="fa fa-eye">{{repoData.subscribers_count}}</i></span>
+            <span class="col-sm-1"><i class="fa fa-code-fork">{{repoData.forks_count}}</i></span>
+            <span class="col-sm-1"><i class="fa fa-exclamation-triangle">{{repoData.open_issues_count}}   </i></span> 
+        </div><br/>
+        <span ng-show="repoData.language">Language: {{repoData.language}}</span><br/>
+        Clone: <a href="{{repoData.clone_url}}">{{repoData.clone_url}}</a>
+    </div>
+
+    <div ng-show="commits">
+        <h2>Recent Commits:</h2>
+        <table ng-show="commits" class="table table-striped table-bordered">
+            <tr>
+                <th>Author</th>
+                <th style="text-align: center">Link</th>
+                <th>Message</th>
+                <th style="text-align: center">Comment Count</th>
+            </tr>
+            <tr ng-repeat="commit in commits | orderBy:commits.date | limitTo:5 track by $index ">
+                <td>{{commit.author.login}}</td>
+                <td style="text-align: center"><a href="{{c.html_url}}"><i class="fa fa-link"></i></a></td>
+                <td>{{commit.commit.message}}</td>
+                <td style="text-align: center">{{commit.commit.comment_count}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-show="repoData.open_issues_count>0">
+        <h2>Issues:</h2>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Title</th>
+                <th>Created Date</th>
+                <th style="text-align: center">Link to Issue</th>
+            </tr>
+            <tr ng-repeat="issue in issues | startFrom:(currentPage-1)*10 | limitTo:10">
+                <td>{{issue.title}}</td>
+                <td>{{issue.created_at}}</td>
+                <td style="text-align: center"><a href="{{issue.html_url}}"><i class="fa fa-link"></i></a></td>
+            </tr>
+        </table>
+        <pagination ng-show="issues" total-items="repoData.open_issues_count" ng-model="currentPage" items-per-page="10" max-size="3"></pagination>
+    </div>
+
+    <div ng-show="repoData.open_issues_count<1">
+        <h2>This repo has no open issues.</h2>
+    </div>
+
+</div>

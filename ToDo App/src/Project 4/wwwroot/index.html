@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/angular/angular-csp.css" rel="stylesheet" />
+    <link href="lib/angular-ui-bootstrap-datetimepicker/datetimepicker.css" rel="stylesheet" />
+    <link href="stylesheet.css" rel="stylesheet" />
+    <title>ToDo App</title>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <div class="navbar-brand" style="margin-left:10px">
+            To-Do Manager <i class="glyphicon glyphicon-tasks"></i>
+        </div>
+    </div>
+</nav>
+
+    <div class="row">
+        <div class="span12 ui-view-container">
+            <div ui-view></div>
+        </div>
+    </div> 
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/ui-router/release/angular-ui-router.min.js"></script>
+<script src="lib/angular-animate/angular-animate.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="lib/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+<script src="lib/moment/min/moment.min.js"></script>
+<script src="app.js"></script>
+<script src="router.js"></script>
+<script src="loginstate/logincontroller.js"></script>
+<script src="toDoState/toDoController.js"></script>
+<script src="settingsState/settingsController.js"></script>
+<script src="registerState/registerController.js"></script>
+
+</body>
+</html>

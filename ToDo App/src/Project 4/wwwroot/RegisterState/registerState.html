@@ -1,0 +1,40 @@
+﻿<div class="container" style="width: 25%">
+    <h2>
+        <strong>REGISTRATION</strong>
+    </h2>
+    <form id="register" name="registration">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-user"></span>
+            </span>
+            <input class="form-control" ng-model="userName" type="text" placeholder="User Name..." autofocus required>
+        </div><br>
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-envelope"></span>
+            </span>
+            <input class="form-control" ng-model="email" type="text" placeholder="Email..." autofocus required>
+        </div><br>
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+            </span>
+            <input class="form-control" id="pwd" name="pwd" ng-model="pwd" ng-minlength="8" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" type="password" placeholder="Password..." required>
+        </div>
+        <div ng-if="registration.pwd.$dirty && (registration.pwd.$error.minlength || registration.pwd.$error.pattern)" class="error">
+            <i class="glyphicon glyphicon-alert"></i>
+            <span> Password must </span>
+            <span ng-show="registration.pwd.$error.minlength">be at least 8 characters and </span>
+            <span ng-show="registration.pwd.$error.pattern">contain one lower &amp; uppercase letter, and one digit (a number)</span>
+        </div><br />
+        <button ng-disabled="!registration.$valid" ng-click="register(userName,email,pwd)" class="btn btn-primary" style="width: 100%" type="submit">Submit</button>
+    </form>
+    <div ng-show="invalidName" class="error">
+        <i class="glyphicon glyphicon-alert"></i>
+        <strong>User Name is not unique!</strong>
+    </div>
+    <div ng-show="invalidEmail" class="error">
+        <i class="glyphicon glyphicon-alert"></i>
+        <strong>Email is not unique!</strong>
+    </div>
+</div>

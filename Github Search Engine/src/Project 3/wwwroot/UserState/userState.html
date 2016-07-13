@@ -1,0 +1,54 @@
+﻿<div class="container" ng-show="userData">
+
+    <div ng-show="userData.avatar_url" class="container">
+        <img class="img-circle" style="width: 100px; height: 100px" ng-src=" {{ userData.avatar_url }} "/>
+    </div>
+    <h2>{{userData.name}}</h2>
+    <h4 style="margin-top: 0">
+        <strong>Profile:</strong><a href="{{userData.html_url}}"> {{userData.login}} </a>
+    </h4>
+    <div ng-show="userData.blog">
+        <strong>Blog:</strong><a href="{{userData.blog}}"> {{ userData.blog }}</a>
+    </div>
+    <div ng-show="userData.location">
+        <p><strong>Location:</strong> {{ userData.location }}
+        </p>
+    </div>
+
+    <div ng-show="!repos">
+        <h2>This user has no repositories.</h2>
+    </div>
+
+    <div ng-show="repos">
+        <h2>Repositories:</h2>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Name</th>
+                <th style="text-align: center">Stars</th>
+                <th style="text-align: center">Open Issues</th>
+                <th>Language</th>
+            </tr>
+            <tr ng-repeat="repo in repos track by $index">
+                <td>{{repo.name}}</td>
+                <td style="text-align: center">{{repo.stargazers_count}}</td>
+                <td style="text-align: center">{{repo.open_issues_count}}</td>
+                <td ng-if="repo.language">{{repo.language}}</td>
+                <td ng-if="!repo.language">Undefined</td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-show="followers">
+        <table class="table table-bordered table-striped" style="width: 25%">
+            <tr>
+                <th style="text-align: center">Followers</th>
+            </tr>
+            <tr ng-repeat="follower in followers track by $index">
+                <td>{{follower.login}}
+                    <img ng-src="{{follower.avatar_url}}" style="width: 30px; height: 30px; float: right"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

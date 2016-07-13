@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <h2>
+        <strong>SETTINGS</strong>
+    </h2>
+
+    <div id="settingsWrapper">
+        <h4>Specify warning date for upcoming tasks:</h4>
+        <p>{{currentWarning}}</p>
+        <span>Days: </span>
+        <select id="days" ng-model="days">
+            <script>
+                var select = document.getElementById("days");
+                for (var i = 31; i >= 0; i--) {
+                    var option = document.createElement('option');
+                    option.text = option.value = i;
+                    select.add(option, 0);
+                }
+            </script>
+        </select>
+        <span>Hours: </span>
+        <select id="hours" ng-model="hours">
+            <script>
+                var select = document.getElementById("hours");
+                for (var i = 24; i >= 0; i--) {
+                    var option = document.createElement('option');
+                    option.text = option.value = i;
+                    select.add(option, 0);
+                }
+            </script>
+        </select>
+
+        <br /><br />
+
+        <div class="btn-group" style="text-align: center">
+            <button class="btn btn-success" ng-click="update()">
+                <i class="glyphicon glyphicon-ok"></i> Update
+            </button>
+            <button class="btn btn-primary" ng-click="return()">
+                <i class="glyphicon glyphicon-share-alt"></i> Return
+            </button>
+        </div>
+
+        <br /><br />
+
+        <span ng-show="changed">Warning date successfully changed!</span>
+    </div>
+</div>

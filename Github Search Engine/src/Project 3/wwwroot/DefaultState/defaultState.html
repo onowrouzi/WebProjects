@@ -1,0 +1,63 @@
+﻿<div class="container" ng-controller="defaultController">
+
+    <form ng-submit="updateData()">
+        <input type="text" style="width: 250px" ng-model="search.value" placeholder="Type in User or Repo Name" />
+        <a class="btn btn-success" ng-click="updateData()">Search</a>
+    </form>
+    <br/>
+
+    <div class="btn-group-sm" data-toggle="buttons">
+        <input type="radio" data-ng-model="search.type" ng-value="1"/>User
+        <input type="radio" data-ng-model="search.type" ng-value="2" style="margin-left:10px"/>Repo
+    </div>
+
+    <div ng-show="notFound" style="margin-top: 20px">
+        <p>No results matched your search. Please try a different query.</p>
+    </div>
+
+    <div ng-show="users.total_count>0">
+        <h2>Results:</h2>
+        
+        <table class="table table-bordered table-striped" style="text-align: center">
+            <tr>
+                <th style="text-align: center" class="col-sm-1">Login</th>
+                <th style="text-align: center" class="col-sm-1">Avatar</th>
+                <th style="text-align: center" class="col-sm-1">Profile</th>
+                <th style="text-align: center" class="col-sm-1">Details</th>
+            </tr>
+            <tr ng-repeat="user in users.items | startFrom:(currentPage-1)*10 | limitTo: 10 track by $index">
+                <td>{{user.login}}</td>
+                <td><img class="img-circle" ng-src="{{user.avatar_url}}" style="width: 30px; height: 30px"/></td>
+                <td><a href="{{user.html_url}}">{{user.html_url}}</a></td>
+                <td><i class="fa fa-external-link" ng-click="sendUserData(user.login)"></i></td>
+            </tr>
+        </table>
+        <pagination ng-show="users" total-items="users.total_count" ng-model="currentPage" items-per-page="10" max-size="3"></pagination>
+        <br/><span>Total users matching query: {{users.total_count}}. </span>
+        <span ng-show="users.total_count>30"> Providing results 1-30. Try providing a more unique query.</span>
+    </div>
+
+    <div ng-show="repos.total_count>0">
+        <h2>Results:</h2>
+        <table class="table table-bordered table-striped" style="text-align: center">
+            <tr>
+                <th style="text-align: center" class="col-sm-2">Name</th>
+                <th style="text-align: center" class="col-sm-1">User</th>
+                <th style="text-align: center" class="col-sm-1">Open Issues</th>
+                <th style="text-align: center" class="col-sm-1">Stars</th>
+                <th style="text-align: center" class="col-sm-1">Details</th>
+            </tr>
+            <tr ng-repeat="repo in repos.items | startFrom:(currentPage-1)*10 | limitTo: 10 track by $index">
+                <td>{{repo.name}}</td>
+                <td><img class="img-circle" ng-src="{{repo.owner.avatar_url}}" style="width: 30px; height: 30px"/></td>
+                <td>{{repo.open_issues_count}}</td>
+                <td>{{repo.stargazers_count}}</td>
+                <td><i class="fa fa-external-link" ng-click="sendRepoData(repo.name,repo.owner.login)"></i></td>
+            </tr>
+        </table>
+        <pagination ng-show="repos" total-items="repos.total_count" ng-model="currentPage" items-per-page="10" max-size="3"></pagination>
+        <br/><span>Total repositories matching query: {{repos.total_count}}. </span>
+        <span ng-show="repos.total_count>30"> Providing results 1-30. Try providing a more unique query.</span>
+    </div>
+
+</div>
