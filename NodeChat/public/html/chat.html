@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-xs-4">
+		<div>
+			<h3>Online Users</h3>
+			<div class="list-group" id="users">
+				<div ng-repeat="u in users track by $index">
+					<div id="user">{{u}}</div>
+				</div>
+			</div>
+		</div>
+		<form action="/users/logout" method="get">
+			<button class="btn btn-primary" ng-click="logout()">Logout</button>
+		</form>
+	</div>
+	<div class="col-xs-7 col-xs-offset-1">
+		<div id="chat" scroll-glue>
+			<div ng-repeat="m in messages | orderBy:'time' track by $index">
+				{{m.user}} [ {{m.time}} ]: {{m.message}}
+			</div>
+		</div>
+		
+		<form id="messageForm">
+			<div class="form-group">
+				<label>Enter Message</label>
+				<textarea class="form-control" ng-model="currentUser.message" id="message"></textarea>
+				<br>
+				<input type="submit" class="btn btn-primary" value="Send Message" ng-click="send(message)"/>
+			</div>
+		</form>
+	</div>
+</div>

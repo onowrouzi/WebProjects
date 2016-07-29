@@ -1,0 +1,22 @@
+.btn {
+	width: 100%;
+}
+
+#chat, #users {
+	width: 100%;
+	min-height: 60vh;
+	max-height: 60vh;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+#chat > div {
+	margin: 10px;
+}
+
+#messageForm {
+	width: 100%;
+	min-height: 30vh;
+	max-height: 30vh;
+}
