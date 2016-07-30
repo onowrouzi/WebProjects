@@ -1,18 +1,69 @@
+body {
+	background-color: #444;
+}
+
+#main {
+	background-color: white;
+	box-shadow: 0 0 30px black;
+	padding: 5vh;
+	margin-top: -30px;
+	min-height: 100vh;
+}
+
 .btn {
 	width: 100%;
 }
 
-#chat, #users {
+#chatHeader {
+	font-size: 60px;
+	font-family: Impact;
+	font-weight: 700;
+	margin-top: 0;
+}
+
+#users {
 	width: 100%;
-	min-height: 60vh;
-	max-height: 60vh;
+	min-height: 61.5vh;
+	max-height: 61.5vh;
 	border: 1px solid #CCC;
 	border-radius: 5px;
 	overflow: auto;
 }
 
-#chat > div {
+#user {
+	padding: 5px;
+	font-weight: 700;
+	border: 1px solid #AAA;
+}
+
+#chat {
+	width: 100%;
+	min-height: 50vh;
+	max-height: 50vh;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+.message {
 	margin: 10px;
+	padding: 10px;
+	border: 1px solid #212121;
+	border-radius: 10px;
+	width: auto;
+	box-shadow: 5px 5px 10px #888;
+	margin-right: 50%;
+	word-wrap: break-word;
+}
+
+.curUser {
+	margin-right: 10px;
+	margin-left: 50%;
+	box-shadow: -5px 5px 10px #888;
+}
+
+#messageInput {
+	height: 50px;
 }
 
 #messageForm {

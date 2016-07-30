@@ -13,6 +13,7 @@ module.exports = function(io, mongo) {
 			console.log('Connected: ' + connections.length + ' sockets connected');
 			
 			socket.on('get messages', function(){ 
+				io.emit('clear messages');
 				messages.find().each(function(err, msg){
 					if (err) throw err;
 					if (msg != null) {
@@ -30,7 +31,6 @@ module.exports = function(io, mongo) {
 				messages.insert({user: data.username, message: data.message, time: data.time}, function(){
 					console.log("Inserted message: " + data.username + " -> " + data.message + " at " + data.time)
 				});
-				io.emit('new message', {message: data.message, user: data.username, time: data.time});
 			});
 			
 			socket.on('enter user', function(data){

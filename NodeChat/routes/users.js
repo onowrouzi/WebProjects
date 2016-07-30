@@ -109,7 +109,7 @@ router.post('/login', function(req, res, next){
 router.get('/logout', function(req, res){
 	req.logout();
 	console.log("LOGGED OUT");
-	res.sendStatus(200);
+	res.redirect('/#/');
 });
 
 module.exports = router;
