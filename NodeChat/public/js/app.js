@@ -1,13 +1,8 @@
 (function () {
     'use strict';
-    
-//this is where the home-route will go
+
 angular.module('app', ['ui.router', 'ui.bootstrap', 'angularMoment', 'ngCookies', 'luegg.directives'])
-	//declare authentication global variable.
-	.run(function($rootScope) {
-		$rootScope.auth = false;
-	})
-	
+	//Inject socket factory for use in Angular.
 	.factory('socket', ['$rootScope', function($rootScope){
 		var socket = io.connect();
 		
@@ -20,5 +15,4 @@ angular.module('app', ['ui.router', 'ui.bootstrap', 'angularMoment', 'ngCookies'
 			}
 		};
 	}]);
-	//Routes defined in router.js
 })();

@@ -12,7 +12,7 @@
                   url: "/",
                   templateUrl: "/html/login.html",
                   controller: "login_controller",
-				/*  resolve: {
+				  resolve: {
 					  load: function($q, $cookieStore){
 						  var deferred = $q.defer();
 						  if (!$cookieStore.get('auth')){
@@ -22,13 +22,13 @@
 						  }
 						  return deferred.promise;
 					  }
-				  } */
+				  } 
               })
 			  .state('chat', {
 				  url: "/chat",
 				  templateUrl: "/html/chat.html",
 				  controller: "chat_controller",
-				/*  resolve: {
+				  resolve: {
 					  load: function($q, $cookieStore){
 						  var deferred = $q.defer();
 						  if ($cookieStore.get('auth')){
@@ -38,17 +38,15 @@
 						  }
 						  return deferred.promise;
 					  }
-				  }	*/			
+				  }			
 			  })
 			  .state('contact', {
 				  url: "/contact",
-				  templateUrl: "/html/contact.html",
-				  //controller: "contact_controller"
+				  templateUrl: "/html/contact.html"
 			  })
 			  .state('about', {
 				  url: "/about",
-				  templateUrl: "/html/about.html",
-				  //controller: "about_controller"
+				  templateUrl: "/html/about.html"
 			  })
 			  .state('register', {
 				  url: "/register",
