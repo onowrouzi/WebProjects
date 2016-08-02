@@ -28,8 +28,9 @@ module.exports = function(io, mongo) {
 			});
 			
 			socket.on('send message', function(data){
-				messages.insert({user: data.username, message: data.message, time: data.time}, function(){
-					console.log("Inserted message: " + data.username + " -> " + data.message + " at " + data.time)
+				messages.insert({user: data.username, message: data.message, time: data.time, avatar: data.avatar}, function(){
+					console.log("Inserted message: " + data.username + " -> " + data.message + " at " + data.time);
+					console.log("Avatar: " + data.avatar);
 				});
 			});
 			
